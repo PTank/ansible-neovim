@@ -1,15 +1,15 @@
-nvim_autoload_dir = "{{ ansible_env.HOME }}/.local/share/nvim/site/autoload"
-vim_autoload_dir = "{{ ansible_env.HOME }}/.vim/autoload"
-nvim_conf_dir = "{{ ansible_env.HOME }}/.config/nvim/"
-nvim_conf = "{{ ansible_env.HOME }}/.config/nvim/init.vim"
-vim_conf = "{{ ansible_env.HOME }}/.vimrc"
+nvim_autoload_dir: "{{ ansible_env.HOME }}/.local/share/nvim/site/autoload"
+vim_autoload_dir: "{{ ansible_env.HOME }}/.vim/autoload"
+nvim_conf_dir: "{{ ansible_env.HOME }}/.config/nvim"
+nvim_conf: "{{ ansible_env.HOME }}/.config/nvim/init.vim"
+vim_conf: "{{ ansible_env.HOME }}/.vimrc"
 
-nvim_plugins = []
-exclusive_vim_plugins = []
-exclusive_nvim_plugins = []
+nvim_plugins: []
+exclusive_vim_plugins: []
+exclusive_nvim_plugins: []
 
-nvim_configuration = ~
-exclusive_nvim_configuration = ~
-exclusive_vim_configuration = ~
+nvim_configuration: ~
+exclusive_nvim_configuration: ~
+exclusive_vim_configuration: ~
 
-nvim_local_bin_dir = "{{ ansible_env.HOME }}/.local/bin"
+nvim_local_bin_dir: "{{ ansible_env.HOME }}/.local/bin"

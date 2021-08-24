@@ -6,8 +6,9 @@
       tags:
         - apt
   rescue:
-    set_fact:
-      skip_appimage: true
+    - name: Set install to appimage
+      set_fact:
+        skip_appimage: true
   block:
     - include_tasks: appimage.yml
       when: skip_appimage is undefined
@@ -23,36 +24,51 @@
       file:
         path: "{{ item }}"
         state: directory
-      with_item:
+      with_items:
         - "{{ nvim_conf_dir }}"
         - "{{ vim_autoload_dir }}"
         - "{{ nvim_autoload_dir }}"
     - name: Install vim.plug
       get_url:
         url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-        dest: "{{ vim_autoload_dir }}plug.vim"
+        dest: "{{ vim_autoload_dir }}/plug.vim"
         force: yes
       tags:
         - vimplug
         - plugins
+    - name: Install python nvim plugin
+      pip: 
+        name: neovim 
+        executable: pip3
+        state: latest
+        extra_args: --user
+      ignore_errors: true
     - name: Configure nvim
       template:
         src: init.vim
         dest: "{{ nvim_conf }}"
-    - name: Share autoload between vim & nvim
-        shell: "ln -s {{ vim_autoload_dir }} {{ nvim_autoload_dir }}"
-        tags:
-         - symlink
+    - name: Copy autoload between vim & nvim
+      file:
+        src: "{{ vim_autoload_dir }}"
+        path: "{{ nvim_autoload_dir | dirname }}"
+      tags:
+        - symlink
     - name: Share Conf
-        shell: "ln -s {{ vim_conf }} {{ nvim_conf }}"
-        tags:
-         - symlink
+      file:
+        src: "{{ vim_conf }}"
+        dest: "{{ nvim_conf }}"
+        state: link
+      ignore_errors: true
+      tags:
+        - symlink
     - name: Init vim plug
-      shell: vim "+silent! PlugInstall!" +qall!
+      shell:
+        cmd: vim "+silent! PlugInstall!" +qall!
       tags:
         - plugins
     - name: Init nvim plug
-      shell: nvim "+silent! PlugInstall!" +qall!
+      shell:
+        cmd: nvim "+silent! PlugInstall!" +qall!
       tags:
         - plugins
   tags:

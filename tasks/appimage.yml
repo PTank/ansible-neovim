@@ -5,6 +5,7 @@
         path: "{{ nvim_local_bin_dir }}"
         state: directory
     - name: Download
-      get_url: https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
-      dest: "{{ nvim_local_bin_dir }}/nvim"
-      mode: 0711
+      get_url:
+        url: https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+        dest: "{{ nvim_local_bin_dir }}/nvim"
+        mode: 0711
