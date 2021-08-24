@@ -1,0 +1,59 @@
+- name: Install neovim
+  block:
+    - include_tasks: apt.yml
+      become: true
+      become_user: root
+      tags:
+        - apt
+  rescue:
+    set_fact:
+      skip_appimage: true
+  block:
+    - include_tasks: appimage.yml
+      when: skip_appimage is undefined
+      tags:
+        - appimage
+  tags:
+    - install
+    - deps
+
+- name: Config
+  block:
+    - name: Make configuration dir
+      file:
+        path: "{{ item }}"
+        state: directory
+      with_item:
+        - "{{ nvim_conf_dir }}"
+        - "{{ vim_autoload_dir }}"
+        - "{{ nvim_autoload_dir }}"
+    - name: Install vim.plug
+      get_url:
+        url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        dest: "{{ vim_autoload_dir }}plug.vim"
+        force: yes
+      tags:
+        - vimplug
+        - plugins
+    - name: Configure nvim
+      template:
+        src: init.vim
+        dest: "{{ nvim_conf }}"
+    - name: Share autoload between vim & nvim
+        shell: "ln -s {{ vim_autoload_dir }} {{ nvim_autoload_dir }}"
+        tags:
+         - symlink
+    - name: Share Conf
+        shell: "ln -s {{ vim_conf }} {{ nvim_conf }}"
+        tags:
+         - symlink
+    - name: Init vim plug
+      shell: vim "+silent! PlugInstall!" +qall!
+      tags:
+        - plugins
+    - name: Init nvim plug
+      shell: nvim "+silent! PlugInstall!" +qall!
+      tags:
+        - plugins
+  tags:
+    - bootstrap

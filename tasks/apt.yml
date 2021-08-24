@@ -1,0 +1,4 @@
+- name: Install with apt
+  apt:
+    name: neovim
+    state: latest
