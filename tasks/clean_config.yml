@@ -1,0 +1,33 @@
+- name: Clean existing file or conf dir for Vim/Nvim
+  file:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - "{{ nvim_autoload_dir }}"
+    - "{{ vim_autoload_dir }}"
+    - "{{ nvim_conf_dir }}"
+    - "{{ nvim_conf }}"
+    - "{{ vim_conf }}"
+  tags:
+    - remove
+    - clean
+    - configuration
+  block:
+    - name: Clean apt
+      apt:
+        name: neovim
+        state: absent
+      become: true
+      become_user: root
+      tags:
+        - apt
+  always:
+    - name: Clean appimage
+      file:
+        name: "{{ nvim_local_bon_dir}}/nvim"
+        state: absent
+      tags:
+        - appimage
+  tags:
+    - clean
+    - remove
