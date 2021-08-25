@@ -56,7 +56,7 @@ Playbook:
 
 If you want to add a pre-clean or just clean this installation:
 
-```
+```yaml
 - import_role:
     name: ansible-neovim
     tasks_from: clean_config
