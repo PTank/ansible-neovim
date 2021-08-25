@@ -5,6 +5,7 @@
       become_user: root
       tags:
         - apt
+        - deps
   rescue:
     - name: Set install to appimage
       set_fact:
@@ -16,7 +17,6 @@
         - appimage
   tags:
     - install
-    - deps
 
 - name: Config
   block:
@@ -38,7 +38,7 @@
         - plugins
     - name: Install python nvim plugin
       pip: 
-        name: neovim 
+        name: pynvim
         executable: pip3
         state: latest
         extra_args: --user
@@ -46,7 +46,7 @@
     - name: Configure nvim
       template:
         src: init.vim
-        dest: "{{ nvim_conf }}"
+        dest: "{{ vim_conf }}"
     - name: Copy autoload between vim & nvim
       file:
         src: "{{ vim_autoload_dir }}"
