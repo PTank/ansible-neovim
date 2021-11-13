@@ -1,15 +1,20 @@
 # Neovim Ansible
 
-This role can works without root level and in this case install `nvim` with appimage.
+Install `neovim` and configure it with co-configuration with `vim`.
 
 ## Vim
 
-Make a single config for vm + nvim.
+Make a single config for vim + nvim.
 
 ## Var
 
 | Variables                       | Usage | Default |
 |:-------------------------------:|:-----:|:---------------------------------------------:|
+| `nvim_installation`             | apt/appimage/source | apt |
+| `nvim_source_dest`              |       | /tmp |
+| `nvim_source_version`           |       | master |
+| `nvim_source_build_mode`        |       | Release |
+| `have_root		 `        |       | Extra var for source installation if set to false skip deps |
 | `nvim_autoload_dir`             |       | /home/$USER/.local/share/nvim/site/autoload |
 | `vim_autoload_dir`              |       | /home/$USER/.vim/autoload |
 | `nvim_conf_dir`                 |       | /home/$USER/.config/nvim |

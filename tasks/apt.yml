@@ -1,4 +1,4 @@
-- name: Nvim deps:
+- name: Nvim deps
   apt:
     name: "{{ item }}"
   with_items:

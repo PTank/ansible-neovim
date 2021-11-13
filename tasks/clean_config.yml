@@ -1,18 +1,17 @@
 - name: Clean existing file or conf dir for Vim/Nvim
-  file:
-    name: "{{ item }}"
-    state: absent
-  with_items:
-    - "{{ nvim_autoload_dir }}"
-    - "{{ vim_autoload_dir }}"
-    - "{{ nvim_conf_dir }}"
-    - "{{ nvim_conf }}"
-    - "{{ vim_conf }}"
-  tags:
-    - remove
-    - clean
-    - configuration
   block:
+    - name: Clean files
+      file:
+        name: "{{ item }}"
+        state: absent
+      with_items:
+        - "{{ nvim_autoload_dir }}"
+        - "{{ vim_autoload_dir }}"
+        - "{{ nvim_conf_dir }}"
+        - "{{ nvim_conf }}"
+        - "{{ vim_conf }}"
+      tags:
+        - configuration
     - name: Clean apt
       apt:
         name: neovim
@@ -24,7 +23,7 @@
   always:
     - name: Clean appimage
       file:
-        name: "{{ nvim_local_bon_dir}}/nvim"
+        name: "{{ nvim_local_bon_dir }}/nvim"
         state: absent
       tags:
         - appimage

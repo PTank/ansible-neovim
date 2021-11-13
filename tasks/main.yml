@@ -6,15 +6,15 @@
       tags:
         - apt
         - deps
-  rescue:
-    - name: Set install to appimage
-      set_fact:
-        skip_appimage: true
-  block:
+      when: nvim_installation|string == apt
     - include_tasks: appimage.yml
-      when: skip_appimage is undefined
       tags:
         - appimage
+      when: nvim_installation|string == appimage
+    - include_tasks: compile.yml
+      tags:
+        - source
+      when: nvim_installation|string == source
   tags:
     - install
 

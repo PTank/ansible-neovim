@@ -1,13 +1,13 @@
 galaxy_info:
-  author: AK
-  role_name: ansible-neovim
+  author: ak
+  role_name: ansible_neovim
   description: Install and configure Vim and NVim 
   license: GPLv3
 
   min_ansible_version: 2.4
 
   platforms:
-    - name: GenericLinux
+    - name: Ubuntu
       versions:
         - all
 
