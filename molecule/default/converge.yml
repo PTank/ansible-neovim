@@ -5,3 +5,13 @@
     - name: "Install std ansible-neovim"
       include_role:
         name: "ansible-neovim"
+    - name: "Install appimage ansible-neovim"
+      include_role:
+        name: "ansible-neovim"
+      vars:
+        nvim_installation: appimage
+    - name: "Install source ansible-neovim"
+      include_role:
+        name: "ansible-neovim"
+      vars:
+        nvim_installation: source
