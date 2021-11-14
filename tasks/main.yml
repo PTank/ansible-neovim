@@ -22,6 +22,7 @@
       file:
         path: "{{ item }}"
         state: directory
+        mode: 0751
       with_items:
         - "{{ nvim_conf_dir }}"
         - "{{ vim_autoload_dir }}"
@@ -45,10 +46,11 @@
       template:
         src: init.vim
         dest: "{{ vim_conf }}"
+        mode: '711'
     - name: Copy autoload between vim & nvim
       file:
         src: "{{ vim_autoload_dir }}"
-        dest: "{{ nvim_autoload_dir}}"
+        dest: "{{ nvim_autoload_dir }}"
         state: link
       tags:
         - symlink
@@ -61,13 +63,11 @@
       tags:
         - symlink
     - name: Init vim plug
-      shell:
-        cmd: vim "+silent! PlugInstall!" +qall!
+      command: vim "+silent! PlugInstall!" +qall!
       tags:
         - plugins
     - name: Init nvim plug
-      shell:
-        cmd: nvim "+silent! PlugInstall!" +qall!
+      command: nvim "+silent! PlugInstall!" +qall!
       tags:
         - plugins
   tags:

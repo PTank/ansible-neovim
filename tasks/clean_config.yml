@@ -2,11 +2,11 @@
   block:
     - name: Clean files
       file:
-        name: "{{ item }}"
+        name: "{{ item }}"
         state: absent
       with_items:
         - "{{ nvim_autoload_dir }}"
-        - "{{ vim_autoload_dir }}"
+        - "{{ vim_autoload_dir }}"
         - "{{ nvim_conf_dir }}"
         - "{{ nvim_conf }}"
         - "{{ vim_conf }}"
