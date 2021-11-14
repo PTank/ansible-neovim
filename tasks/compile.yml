@@ -31,7 +31,7 @@
         chdir: "{{ nvim_source_dest }}"
         params:
           CMAKE_BUILD_TYPE: "{{ nvim_source_build_mode }}"
-          CMAKE_INSTALL_PREFIX: "{{ nvim_local_bin_dir }}"
+          CMAKE_INSTALL_PREFIX: "{{ nvim_local_bin_dir | dirname }}"
       changed_when: false
     - name: Install
       community.general.make:
