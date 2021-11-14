@@ -1,7 +1,7 @@
 # INSTALLATION
 nvim_installation: "apt"
 # Install from source
-nvim_source_dest: "/tmp"
+nvim_source_dest: "/tmp/neovim"
 nvim_source_version: "master"
 nvim_source_build_mode: "Release"
 

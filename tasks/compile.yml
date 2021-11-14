@@ -12,6 +12,7 @@
         - autoconf
         - automake
         - cmake
+        - git
         - g++
         - pkg-config
         - unzip

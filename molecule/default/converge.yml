@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Install std ansible-neovim"
+      include_role:
+        name: "ansible-neovim"
