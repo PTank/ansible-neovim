@@ -1,0 +1,35 @@
+- name: Install from source
+  block:
+    - name: Install deps
+      become: true
+      apt:
+        name: "{{ item }}"
+      with_items:
+        - ninja-build
+        - gettext
+        - libtool
+        - libtool-bin
+        - autoconf
+        - automake
+        - cmake
+        - git
+        - g++
+        - pkg-config
+        - unzip
+        - curl
+        - doxygen
+      when: have_root | default(true) | bool
+      tags:
+        - deps
+    - name: Get source
+      ansible.builtin.git:
+        repo: https://github.com/neovim/neovim
+        dest: "{{ nvim_source_dest }}"
+        version: "{{ nvim_source_version }}"
+    - name: Build nvim
+      community.general.make:
+        chdir: "{{ nvim_source_dest }}"
+        target: "install"
+        params:
+          CMAKE_BUILD_TYPE: "{{ nvim_source_build_mode }}"
+          CMAKE_INSTALL_PREFIX: "{{ nvim_local_bin_dir }}"
