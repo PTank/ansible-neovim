@@ -9,7 +9,11 @@ galaxy_info:
   platforms:
     - name: Ubuntu
       versions:
-        - all
+        - bionic
+        - focal
+    - name: Debian
+      versions:
+        - bullseye
 
   galaxy_tags:
     - neovim

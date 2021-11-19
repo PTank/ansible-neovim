@@ -11,15 +11,17 @@ Make a single config for vim + nvim.
 | Variables                       | Usage | Default |
 |:-------------------------------:|:-----:|:---------------------------------------------:|
 | `nvim_installation`             | apt/appimage/source | apt |
+| `nvim_install_dir`              |       | /home/$USER |
+| `nvim_user`                     |       | $USER |
 | `nvim_source_dest`              |       | /tmp |
 | `nvim_source_version`           |       | master |
 | `nvim_source_build_mode`        |       | Release |
-| `have_root		 `        |       | Extra var for source installation if set to false skip deps |
-| `nvim_autoload_dir`             |       | /home/$USER/.local/share/nvim/site/autoload |
-| `vim_autoload_dir`              |       | /home/$USER/.vim/autoload |
-| `nvim_conf_dir`                 |       | /home/$USER/.config/nvim |
-| `nvim_conf`                     |       | /home/$USER/.config/nvim/init.vim |
-| `vim_conf`                      |       | /home/$USER/.virmc |
+| `have_root		 `        | Extra var for source installation if set to false skip deps | |
+| `nvim_autoload_dir`             |       | `nvim_install_dir`/.local/share/nvim/site/autoload |
+| `vim_autoload_dir`              |       | `nvim_install_dir`/.vim/autoload |
+| `nvim_conf_dir`                 |       | `nvim_install_dir`/.config/nvim |
+| `nvim_conf`                     |       | `nvim_install_dir`/.config/nvim/init.vim |
+| `vim_conf`                      |       | `nvim_install_dir`/.virmc |
 | `nvim_plugins` | List of vim plugins, accept mapping entry with options for vim plug | [] |
 | `exclusive_nvim_plugins`        |       | []                 |
 | `exclusive_vim_plugins`         |       | []                 |
@@ -57,6 +59,25 @@ Playbook:
          - junegunn/fzf.vim
          - vim-airline/vim-airline
          - vim-airline/vim-airline-themes
+```
+
+Or to make multiple users
+
+```yaml
+-name: Install Nvim
+ host: localhost
+ connection: local
+ tasks:
+   - import_role:
+     name: ansible-neovim
+     vars:
+       nvim_configuration: |
+         set number
+         set t_Co=256
+       nvim_install_dir: "/home/{{ item }}"
+       nvim_user: "{{ item }}"
+     with_items:
+       - user_name
 ```
 
 If you want to add a pre-clean or just clean this installation:
