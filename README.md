@@ -10,7 +10,8 @@ Make a single config for vim + nvim.
 
 | Variables                       | Usage | Default |
 |:-------------------------------:|:-----:|:---------------------------------------------:|
-| `nvim_installation`             | apt/appimage/source | apt |
+| `nvim_installation`             | package/appimage/source | package (eg: apt for debian like) |
+| `nvim_version`                  |       |  latest |
 | `nvim_install_dir`              |       | /home/$USER |
 | `nvim_user`                     |       | $USER |
 | `nvim_source_dest`              |       | /tmp |

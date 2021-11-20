@@ -11,3 +11,10 @@
   apt:
     name: neovim
     state: latest
+  when: nvim_version | string == "latest"
+
+- name: "Install version: {{ nvim_version }}"
+  apt:
+    name: "neovim={{ nvim_version }}"
+    state: present
+  when: nvim_version | string != "latest"

@@ -2,9 +2,9 @@
   block:
     - include_tasks: apt.yml
       tags:
-        - apt
+        - package
         - deps
-      when: nvim_installation|string == "apt"
+      when: nvim_installation|string == "package"
     - include_tasks: appimage.yml
       tags:
         - appimage
