@@ -8,7 +8,7 @@
         mode: 0751
     - name: Download
       get_url:
-        url: https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+        url: "https://github.com/neovim/neovim/releases/{{ nvim_version }}/download/nvim.appimage"
         dest: "{{ nvim_local_bin_dir }}/nvim"
         mode: 0711
         owner: "{{ nvim_user }}"

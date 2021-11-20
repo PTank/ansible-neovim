@@ -18,5 +18,10 @@ galaxy_info:
   galaxy_tags:
     - neovim
     - texteditor
+    - appimage
+    - source
+    - packaging
+    - linux
+    - developement
 
   dependencies: []
