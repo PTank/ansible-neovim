@@ -1,6 +1,6 @@
 # Neovim Ansible
 
-Install `neovim` and configure it with co-configuration with `vim`.
+Install `neovim` from package, appimage or build source and configure plugins.
 
 ## Vim
 
@@ -66,8 +66,6 @@ Or to make multiple users
 
 ```yaml
 -name: Install Nvim
- host: localhost
- connection: local
  tasks:
    - import_role:
      name: ansible-neovim
