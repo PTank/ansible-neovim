@@ -4,9 +4,15 @@
   gather_facts: false
   tasks:
     - name: Install python for Ansible
-      raw: test -e /usr/bin/python || (apt -y update && apt install -y python3-minimal)
-      # become: true
+      raw: |
+              test -e /usr/bin/apt && (apt -y update && apt install -y python3-minimal) 
+              || test-e /usr/bin/yum && (yum -y install python libselinux-python3)
       changed_when: false
+
+- name: Sudoer
+  hosts: all
+  tasks:
     - name: Install sudo
-      raw: apt install -y sudo
+      package:
+        name: sudo
       changed_when: false
