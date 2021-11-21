@@ -1,6 +1,6 @@
 - name: Install neovim
   block:
-    - include_tasks: apt.yml
+    - include_tasks: package.yml
       tags:
         - package
         - deps
@@ -67,9 +67,14 @@
       ignore_errors: true
       tags:
         - symlink
+    - name: Check vim executable is present
+      shell: "which vim"
+      register: have_vim
+      ignore_errors: true
     - name: Init vim plug
       command: vim "+silent! PlugInstall!" +qall!
       changed_when: false
+      when: have_vim.rc == 0
       tags:
         - plugins
     - name: Init nvim plug

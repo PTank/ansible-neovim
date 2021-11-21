@@ -1,22 +1,29 @@
 - name: Nvim deps
-  apt:
+  yum:
     name:
-      - python3-dev
+      - python3-devel
       - python3-pip
-      - python3-neovim
+      - epel-release
     state: present
   become: true
 
-- name: Install with apt
-  apt:
+- name: Install with yum
+  yum:
     name: neovim
     state: latest
   become: true
   when: nvim_version | string == "latest"
 
 - name: "Install version: {{ nvim_version }}"
-  apt:
-    name: "neovim={{ nvim_version }}"
+  yum:
+    name: "neovim-{{ nvim_version }}"
     state: present
   become: true
   when: nvim_version | string != "latest"
+
+- name: Extra deps
+  yum:
+    name: python3-neovim
+    state: present
+  become: true
+  become_user: root

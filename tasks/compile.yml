@@ -1,7 +1,7 @@
-- name: Install from source
+- name: Install deps
+  become: true
   block:
-    - name: Install deps
-      become: true
+    - name: Apt
       apt:
         name: "{{ item }}"
       with_items:
@@ -18,9 +18,40 @@
         - unzip
         - curl
         - doxygen
-      when: have_root | default(true) | bool
-      tags:
-        - deps
+      when: ansible_os_family == "Debian"
+    - name: Install dnf
+      yum:
+        name: dnf-plugins-core
+      when: ansible_os_family == "RedHat"
+    - name: Enabled powertools
+      command: yum config-manager --set-enabled powertools
+      changed_when: false
+      when: ansible_os_family == "RedHat"
+    - name: Yum
+      yum:
+        name:
+          - libtool
+          - autoconf
+          - automake
+          - cmake
+          - git
+          - gcc
+          - gcc-c++
+          - make
+          - pkgconfig
+          - unzip
+          - patch
+          - gettext
+          - ninja-build
+          - curl
+        state: present
+      when: ansible_os_family == "RedHat"
+  tags:
+    - deps
+  when: have_root | default(true) | bool
+
+- name: Install from source
+  block:
     - name: Get source
       ansible.builtin.git:
         repo: https://github.com/neovim/neovim
