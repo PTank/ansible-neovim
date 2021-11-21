@@ -25,6 +25,8 @@
       when: ansible_os_family == "RedHat"
     - name: Enabled powertools
       command: yum config-manager --set-enabled powertools
+      args:
+        warn: no
       changed_when: false
       when: ansible_os_family == "RedHat"
     - name: Yum
