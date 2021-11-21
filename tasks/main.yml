@@ -71,6 +71,7 @@
       command: "which vim"
       register: have_vim
       ignore_errors: true
+      changed_when: false
     - name: Init vim plug
       command: vim "+silent! PlugInstall!" +qall!
       changed_when: false
