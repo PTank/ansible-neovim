@@ -1,0 +1,67 @@
+- name: Config
+  block:
+    - name: Make configuration dir
+      file:
+        path: "{{ item }}"
+        state: directory
+        owner: "{{ nvim_user }}"
+        mode: 0751
+      with_items:
+        - "{{ nvim_conf_dir }}"
+        - "{{ vim_autoload_dir }}"
+        - "{{ nvim_autoload_dir | dirname }}"
+    - name: Install vim.plug
+      get_url:
+        url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        dest: "{{ vim_autoload_dir }}/plug.vim"
+        force: yes
+      tags:
+        - vimplug
+        - plugins
+    - name: Install python nvim plugin
+      pip: 
+        name: pynvim
+        executable: pip3
+        state: latest
+        extra_args: --user
+      changed_when: false
+      ignore_errors: true
+    - name: Configure nvim
+      template:
+        src: init.vim
+        dest: "{{ vim_conf }}"
+        owner: "{{ nvim_user }}"
+        mode: '711'
+    - name: Copy autoload between vim & nvim
+      file:
+        src: "{{ vim_autoload_dir }}"
+        dest: "{{ nvim_autoload_dir }}"
+        owner: "{{ nvim_user }}"
+        state: link
+      tags:
+        - symlink
+    - name: Share Conf
+      file:
+        src: "{{ vim_conf }}"
+        dest: "{{ nvim_conf }}"
+        owner: "{{ nvim_user }}"
+        state: link
+      ignore_errors: true
+      tags:
+        - symlink
+    - name: Check vim executable is present
+      command: "which vim"
+      register: have_vim
+      ignore_errors: true
+      changed_when: false
+    - name: Init vim plug
+      command: vim "+silent! PlugInstall!" +qall!
+      changed_when: false
+      when: have_vim.rc == 0
+      tags:
+        - plugins
+    - name: Init nvim plug
+      command: nvim "+silent! PlugInstall!" +qall!
+      changed_when: false
+      tags:
+        - plugins

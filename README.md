@@ -67,8 +67,12 @@ Or to make multiple users
 ```yaml
 -name: Install Nvim
  tasks:
-   - import_role:
+   - include_role:
      name: ansible-neovim
+     from_tasks: package.yml # Installation with the package manager
+   - include_role:
+     name: ansible-neovim
+     from_tasks: configuration.yml
      vars:
        nvim_configuration: |
          set number
