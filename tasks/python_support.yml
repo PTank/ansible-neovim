@@ -1,0 +1,36 @@
+- block:
+    - name: Debian python neovim
+      apt:
+        name:
+          - python3-pip
+          - python3-neovim
+        state: present
+      become: true
+  when: ansible_os_family == "Debian" and have_root | default(true) | bool
+
+- block:
+    - name: Prepare epel
+      yum:
+        name:
+          - python3-pip 
+          - epel-release
+        state: present
+    - name: Install support from yum
+      yum:
+        name: python3-neovim
+        state: present
+  become: true
+  when: ansible_os_family == "RedHat" and have_root | default(true) | bool
+
+- block:
+    - name: Install python nvim support from pip
+      pip: 
+        name: pynvim
+        executable: pip3
+        state: latest
+        extra_args: --user
+      become: true
+      become_user: "{{ nvim_user }}"
+      changed_when: false
+      ignore_errors: true
+  when: have_root | default(true) | bool == false

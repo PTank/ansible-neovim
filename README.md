@@ -2,6 +2,8 @@
 
 Install `neovim` from package, appimage or build source and configure plugins.
 
+Compile from source or appimage use by default the .local/bin dir from the user's home.
+
 ## Vim
 
 Make a single config for vim + nvim.

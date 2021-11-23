@@ -18,14 +18,6 @@
       tags:
         - vimplug
         - plugins
-    - name: Install python nvim plugin
-      pip: 
-        name: pynvim
-        executable: pip3
-        state: latest
-        extra_args: --user
-      changed_when: false
-      ignore_errors: true
     - name: Configure nvim
       template:
         src: init.vim

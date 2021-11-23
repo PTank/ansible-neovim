@@ -16,6 +16,11 @@
   tags:
     - install
 
+- name: Add python support
+  include_tasks: python_support.yml
+  tags:
+    - python_support
+
 - name: Prepare config
   include_tasks: configuration.yml 
   tags:
