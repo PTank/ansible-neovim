@@ -75,6 +75,8 @@ Or to make multiple users
    - include_role:
      name: ansible-neovim
      from_tasks: configuration.yml
+     name: ansible-neovim
+     from_tasks: python_support.yml # Extra
      vars:
        nvim_configuration: |
          set number

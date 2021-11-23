@@ -6,8 +6,8 @@
     - name: Install python for Ansible
       raw: |
               test -e /usr/bin/python || \
-              (test -e /usr/bin/apt && (apt -y update && apt install -y python3-minimal)) || \
-              (test -e /usr/bin/yum && (yum -y install python libselinux-python3)) || \
+              (test -e /usr/bin/apt && (apt -y update && apt install -y python3-minimal python3-pip)) || \
+              (test -e /usr/bin/yum && (yum -y install libselinux-python3)) || \
               echo "No package manager found"
       changed_when: false
 

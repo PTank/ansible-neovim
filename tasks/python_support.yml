@@ -1,9 +1,7 @@
 - block:
     - name: Debian python neovim
       apt:
-        name:
-          - python3-pip
-          - python3-neovim
+        name: python3-neovim
         state: present
       become: true
   when: ansible_os_family == "Debian" and have_root | default(true) | bool
@@ -11,9 +9,7 @@
 - block:
     - name: Prepare epel
       yum:
-        name:
-          - python3-pip 
-          - epel-release
+        name: epel-release
         state: present
     - name: Install support from yum
       yum:
