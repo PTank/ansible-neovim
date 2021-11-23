@@ -2,6 +2,8 @@
 
 Install `neovim` from package, appimage or build source and configure plugins.
 
+Compile from source or appimage use by default the .local/bin dir from the user's home.
+
 ## Vim
 
 Make a single config for vim + nvim.
@@ -67,8 +69,14 @@ Or to make multiple users
 ```yaml
 -name: Install Nvim
  tasks:
-   - import_role:
+   - include_role:
      name: ansible-neovim
+     from_tasks: package.yml # Installation with the package manager
+   - include_role:
+     name: ansible-neovim
+     from_tasks: configuration.yml
+     name: ansible-neovim
+     from_tasks: python_support.yml # Extra
      vars:
        nvim_configuration: |
          set number

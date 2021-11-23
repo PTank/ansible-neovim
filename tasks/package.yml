@@ -1,0 +1,38 @@
+- block:
+    - name: Install with apt
+      apt:
+        name: neovim
+        state: latest
+      become: true
+      when: nvim_version | string == "latest"
+    
+    - name: "Install version: {{ nvim_version }}"
+      apt:
+        name: "neovim={{ nvim_version }}"
+        state: present
+      become: true
+      when: nvim_version | string != "latest"
+  when: ansible_os_family == "Debian"
+
+- block:
+    - name: Nvim deps
+      yum:
+        name:
+          - epel-release
+        state: present
+      become: true
+    
+    - name: Install with yum
+      yum:
+        name: neovim
+        state: latest
+      become: true
+      when: nvim_version | string == "latest"
+    
+    - name: "Install version: {{ nvim_version }}"
+      yum:
+        name: "neovim-{{ nvim_version }}"
+        state: present
+      become: true
+      when: nvim_version | string != "latest"
+  when: ansible_os_family == "RedHat"
