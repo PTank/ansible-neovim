@@ -58,7 +58,7 @@ Playbook:
        nvim_plugins:
          - name: junegunn/fzf
            options:
-		     dir: '~/.fzf'
+             dir: '~/.fzf'
              do: './install --all'
          - junegunn/fzf.vim
          - vim-airline/vim-airline
