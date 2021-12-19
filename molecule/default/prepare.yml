@@ -5,7 +5,6 @@
   tasks:
     - name: Install python for Ansible
       raw: |
-              test -e /usr/bin/python || \
               (test -e /usr/bin/apt && (apt -y update && apt install -y python3-minimal fuse python3-pip)) || \
               (test -e /usr/bin/yum && (yum -y install libselinux-python3)) || \
               (test -e /usr/bin/pacman && (pacman -Sy --noconfirm  python openssl)) || \
