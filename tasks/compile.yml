@@ -19,6 +19,22 @@
         - curl
         - doxygen
       when: ansible_os_family == "Debian"
+- name: Install deps
+  become: true
+  block:
+    - name: Arch
+      pacman:
+        name:
+          - git
+          - base-devel
+          - cmake
+          - unzip
+          - ninja
+          - tree-sitter
+          - curl
+        state: present
+        update_cache: yes
+      when: ansible_os_family == "Archlinux"
     - name: Install dnf
       yum:
         name: dnf-plugins-core
@@ -71,3 +87,18 @@
         chdir: "{{ nvim_source_dest }}"
         target: "install"
       changed_when: false
+
+- name: Update Alternative
+  community.general.alternatives:
+    name: "{{ item }}"
+    path: "{{ nvim_local_bin_dir }}/nvim"
+    priority: 110
+  ignore_errors: true
+  loop:
+  - ex
+  - vi
+  - view
+  - vim
+  - vimdiff
+  - nvim
+  when: have_root | default(true) | bool
