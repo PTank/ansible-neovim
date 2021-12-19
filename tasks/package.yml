@@ -15,6 +15,21 @@
   when: ansible_os_family == "Debian"
 
 - block:
+    - name: Install for Arch
+      pacman:
+        name: neovim
+        state: latest
+      become: true
+      when: nvim_version | string == "latest"
+    - name: "Install version: {{ nvim_version }}"
+      apt:
+        name: "neovim={{ nvim_version }}"
+        state: present
+      become: true
+      when: nvim_version | string != "latest"
+  when: ansible_os_family == "Archlinux"
+
+- block:
     - name: Nvim deps
       yum:
         name:

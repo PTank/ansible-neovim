@@ -19,6 +19,22 @@
         - curl
         - doxygen
       when: ansible_os_family == "Debian"
+- name: Install deps
+  become: true
+  block:
+    - name: Arch
+      pacman:
+        name:
+          - git
+          - base-devel
+          - cmake
+          - unzip
+          - ninja
+          - tree-sitter
+          - curl
+        state: present
+        update_cache: yes
+      when: ansible_os_family == "Archlinux"
     - name: Install dnf
       yum:
         name: dnf-plugins-core
