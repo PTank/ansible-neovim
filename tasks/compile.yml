@@ -77,6 +77,7 @@
     name: "{{ item }}"
     path: "{{ nvim_local_bin_dir }}/nvim"
     priority: 110
+  ignore_errors: true
   loop:
   - ex
   - vi
