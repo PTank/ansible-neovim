@@ -7,6 +7,7 @@ platforms:
   - name: "${MOLECULE_DISTRO_NAME:-Ubuntu18}"
     image: "${MOLECULE_DISTRO_IMAGE:-ubuntu:18.04}"
     pre_build_image: true
+    privileged: True
 provisioner:
   name: ansible
 verifier:
