@@ -1,4 +1,10 @@
 - block:
+    - name: Add PPA for Ubuntu
+      ansible.builtin.apt_repository:
+        repo: ppa:neovim-ppa/stable
+        state: present
+      when: nvim_ppa | bool == true
+
     - name: Install with apt
       apt:
         name: neovim

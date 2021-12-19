@@ -14,6 +14,7 @@ Make a single config for vim + nvim.
 |:-------------------------------:|:-----:|:---------------------------------------------:|
 | `nvim_installation`             | package/appimage/source | package (eg: apt for debian like) |
 | `nvim_version`                  |       |  latest |
+| `nvim_ppa`                      | Only usefull for Ubuntu when install with apt |  true |
 | `nvim_install_dir`              |       | /home/$USER |
 | `nvim_user`                     |       | $USER |
 | `nvim_source_dest`              |       | /tmp |
@@ -58,7 +59,8 @@ Playbook:
        nvim_plugins:
          - name: junegunn/fzf
            options:
-             do: '-> fzf#install()'
+		     dir: '~/.fzf'
+             do: './install --all'
          - junegunn/fzf.vim
          - vim-airline/vim-airline
          - vim-airline/vim-airline-themes
@@ -69,14 +71,15 @@ Or to make multiple users
 ```yaml
 -name: Install Nvim
  tasks:
-   - include_role:
+   - import_role:
      name: ansible-neovim
-     from_tasks: package.yml # Installation with the package manager
-   - include_role:
+     tasks_from: package.yml # Installation with the package manager
+   - import_role:
      name: ansible-neovim
-     from_tasks: configuration.yml
+     tasks_from: python_support.yml # Extra
+   - import_role:
      name: ansible-neovim
-     from_tasks: python_support.yml # Extra
+     tasks_from: configuration.yml
      vars:
        nvim_configuration: |
          set number

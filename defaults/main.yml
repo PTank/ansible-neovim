@@ -1,5 +1,6 @@
 # INSTALLATION
 nvim_installation: "package"
+nvim_ppa: true
 nvim_version: "latest"
 # Install from source
 nvim_source_dest: "/tmp/neovim"
