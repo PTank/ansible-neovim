@@ -16,7 +16,7 @@
 - name: Update Alternative
   community.general.alternatives:
     name: "{{ item }}"
-    path: "{{ nvim_install_dir }}/nvim"
+    path: "{{ nvim_local_bin_dir }}/nvim"
     priority: 110
   loop:
   - ex
