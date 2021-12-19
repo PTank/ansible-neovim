@@ -12,3 +12,17 @@
         dest: "{{ nvim_local_bin_dir }}/nvim"
         mode: 0755
         owner: "{{ nvim_user }}"
+
+- name: Update Alternative
+  community.general.alternatives:
+    name: "{{ item }}"
+    path: "{{ nvim_install_dir }}"
+    priority: 110
+  loop:
+  - ex
+  - vi
+  - view
+  - vim
+  - vimdiff
+  - nvim
+  when: have_root | default(true) | bool

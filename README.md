@@ -14,7 +14,6 @@ Make a single config for vim + nvim.
 |:-------------------------------:|:-----:|:---------------------------------------------:|
 | `nvim_installation`             | package/appimage/source | package (eg: apt for debian like) |
 | `nvim_version`                  |       |  latest |
-| `nvim_ppa`                      | Only usefull for Ubuntu when install with apt |  true |
 | `nvim_install_dir`              |       | /home/$USER |
 | `nvim_user`                     |       | $USER |
 | `nvim_source_dest`              |       | /tmp |

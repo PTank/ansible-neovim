@@ -71,3 +71,17 @@
         chdir: "{{ nvim_source_dest }}"
         target: "install"
       changed_when: false
+
+- name: Update Alternative
+  community.general.alternatives:
+    name: "{{ item }}"
+    path: "{{ nvim_install_dir }}"
+    priority: 110
+  loop:
+  - ex
+  - vi
+  - view
+  - vim
+  - vimdiff
+  - nvim
+  when: have_root | default(true) | bool
