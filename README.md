@@ -1,5 +1,5 @@
-![lint](https://github.com/PTank/ansible-neovim/actions/workflows/lint.yml/badge.svg)
-![test](https://github.com/PTank/ansible-neovim/actions/workflows/main.yml/badge.svg)
+[![Ansible Lint](https://github.com/PTank/ansible-neovim/actions/workflows/lint.yml/badge.svg)](https://github.com/PTank/ansible-neovim/actions/workflows/lint.yml)
+[![Test](https://github.com/PTank/ansible-neovim/actions/workflows/main.yml/badge.svg)](https://github.com/PTank/ansible-neovim/actions/workflows/main.yml)
 
 # Neovim Ansible
 
