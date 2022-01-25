@@ -1,3 +1,6 @@
+![lint](https://github.com/PTank/ansible-neovim/actions/workflows/lint.yml/badge.svg)
+![test](https://github.com/PTank/ansible-neovim/actions/workflows/main.yml/badge.svg)
+
 # Neovim Ansible
 
 Install `neovim` from package, appimage or build source and configure plugins.
